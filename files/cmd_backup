@@ -1,0 +1,21 @@
+#!/bin/sh
+
+error () {
+  echo "ERROR: $@"
+  echo "USAGE: $0 <config> <obnam command>
+"
+  exit 1
+}
+
+config="$1"
+[ -z "$config" ] && error "Too few parameters"
+shift
+cmd="$@"
+
+[ -z "$cmd" ] && error "Too few parameters"
+
+file="/etc/obnam/${config}.conf"
+[ -f "$file" ] || error "$file does not exists"
+
+obnam --no-default-config --config="$file" "$cmd"
+

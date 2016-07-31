@@ -1,0 +1,17 @@
+- name: create obnam directory
+  file: path=/etc/obnam state=directory mode=750 owner=root group=root
+
+- name: copy obnam generic running script
+  copy: src=cmd_backup dest=/etc/obnam/
+
+- name: copy obnam backup script
+  copy: src=do_backup.sh dest=/etc/obnam/
+
+- name: create configuration files for etc backup
+  template: src=backupetc.conf dest=/etc/obnam/etc-{{ ansible_hostname }}-{{ item.name }}.conf
+  with_items: "{{ obnam_backup_etc }}" 
+
+- name: create configuration files for home backup
+  template: src=backuphome.conf dest=/home/obnam/home-{{ ansible_hostname }}-{{ item.name }}.conf
+  with_items: "{{ obnam_backup_home }}" 
+

@@ -1,0 +1,27 @@
+ansible-jd-obnam_backup
+=========================
+
+This role install a few scripts and configuration files in ``/etc/obnam`` which
+help me running backups on various mediums for ``/etc`` and ``/home``.
+
+
+Configuration
+-------------
+
+    backup_etc:
+      - name: hanuman
+        repository: sftp://login@hostname/path/
+        gpgkey: YYYYYYYYYYY
+    backup_home:
+      - name: hanuman
+        repository: /local/path
+        gpgkey: XXXXXXXXXX
+
+Installation
+------------
+
+I install this role as a submodules of a main git repository :
+
+    cd ansible-conf
+    git submodule add git@github.com:jon-d/ansible-jd-obnam_backup.git roles/obnam_backup
+    git commit -m "Add role obnam_backup"
